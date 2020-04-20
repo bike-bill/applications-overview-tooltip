@@ -111,7 +111,7 @@ function _connectAll(view) {
 	let appIcons = view._orderedItems;
 	for (let i in appIcons) {
 		let icon = appIcons[i];
-		let actor = icon.actor;
+		let actor = icon;
 		if (actor._delegate.hasOwnProperty('_folder')) {
 			_connectAll(icon.view)
 		}
