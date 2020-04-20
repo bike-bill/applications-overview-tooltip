@@ -18,10 +18,15 @@
         <summary>Set fade-out tooltip duration.</summary>
         <description>Determines how fast the tooltip should be dismissed.</description>
     </key>
-    <key name="alwaysshow" type="b">
-            <default>true</default>
-            <summary>Always show tooltips.</summary>
-            <description>Shall the tooltip be displayed even if the text is not cut-off/elipsized.</description>
+    <key name="title" type="b">
+      <default>true</default>
+      <summary>Display app title.</summary>
+      <description>Shall the title of the app be displayed (true/false)</description>
+    </key>
+    <key name="titlealways" type="b">
+        <default>true</default>
+        <summary>Always show tooltips.</summary>
+        <description>Shall the tooltip title be displayed even if the title is not cut-off/elipsized.</description>
     </key>
     <key name="appdescription" type="b">
       <default>true</default>

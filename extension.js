@@ -16,7 +16,8 @@ let LABELHIDETIME 	= 10/100;
 let SLIDETIME		= 15/100;
 let HOVERDELAY		= 300;
 let HIDEDELAY		= 500;
-let ALWAYSSHOW		= true;
+let TITLE			= true;
+let TITLE_FORCE		= true;
 let APPDESCRIPTION	= true;
 let GROUPAPPCOUNT	= true;
 let BORDERS			= false;
@@ -96,7 +97,8 @@ function _applySettings() {
 	LABELSHOWTIME = _settings.get_int("labelshowtime")/100 ;
 	LABELHIDETIME = _settings.get_int("labelhidetime")/100 ;
 	HOVERDELAY = _settings.get_int("hoverdelay") ;
-	ALWAYSSHOW = _settings.get_boolean("alwaysshow") ;
+	TITLE = _settings.get_boolean("title") ;
+	TITLE_FORCE = _settings.get_boolean("titlealways") ;
 	APPDESCRIPTION = _settings.get_boolean("appdescription") ;
 	GROUPAPPCOUNT = _settings.get_boolean("groupappcount") ;
 	BORDERS = _settings.get_boolean("borders");
@@ -188,7 +190,9 @@ function _onLeave() {
 function _showTooltip(actor) {
 
 	let icontext = '';
+	let titletext = '';
 	let detailtext = '';
+	let is_ellipsized = actor._delegate.icon.label.get_clutter_text().get_layout().is_ellipsized();
 	let should_display = false;
 
 	if (actor._delegate.app){
@@ -199,6 +203,7 @@ function _showTooltip(actor) {
 			let appDescription = actor._delegate.app.get_description();
 			if (appDescription){
 				detailtext = appDescription;
+				should_display = true;
 			}
 		}
 
@@ -209,6 +214,7 @@ function _showTooltip(actor) {
 		if (GROUPAPPCOUNT) {
 			let appCount = actor._delegate.view.getAllItems().length;
 			detailtext = Gettext.ngettext( "Group of %d application", "Group of %d applications", appCount ).format(appCount);
+			should_display = true;
 		}
 
 	} else {
@@ -217,15 +223,23 @@ function _showTooltip(actor) {
 
 	}
 
+	// Decide wether to show title
+	if ( TITLE && icontext ) {
+		if ( TITLE_FORCE || is_ellipsized ) {
+			titletext = icontext;
+			should_display = true;
+		}
+	}
+
 	// If there's something to show ..
-	if ( icontext && ( ALWAYSSHOW || actor._delegate.icon.label.get_clutter_text().get_layout().is_ellipsized() ) ){
+	if ( ( titletext || detailtext ) && should_display ) {
 
 		// Create a new tooltip if needed
 		if (!_ttbox) {
 			let css_class = BORDERS ? 'app-tooltip-borders' : 'app-tooltip';
 			_ttbox = new St.Bin({ style_class: css_class });
 			_ttlayout = new St.BoxLayout({ vertical: true });
-			_ttlabel = new St.Label({ style_class: 'app-tooltip-title', text: icontext });
+			_ttlabel = new St.Label({ style_class: 'app-tooltip-title', text: titletext });
 			_ttdetail = new St.Label({ style_class: 'app-tooltip-detail', text: detailtext });
 			_ttlayout.add_child(_ttlabel);
 			_ttlayout.add_child(_ttdetail);
@@ -241,10 +255,11 @@ function _showTooltip(actor) {
 
 			Main.uiGroup.add_actor(_ttbox);
 		} else {
-			_ttlabel.text = icontext;
+			_ttlabel.text = titletext;
 			_ttdetail.text = detailtext;
 		}
 
+		if (!titletext) { _ttlabel.hide() } else { _ttlabel.show() };
 		if (!detailtext) { _ttdetail.hide() } else { _ttdetail.show() };
 
 		let [stageX, stageY] = actor.get_transformed_position();
