@@ -35,7 +35,8 @@ let _labelShowing = false;		// self explainatory
 
 let _settings;
 let _settingsConnectionId;
-
+let _pageChangedConnectionId;
+let _ovhidingConnectionId;
 
 function init() {
 
@@ -70,10 +71,20 @@ function enable() {
 	// apply new settings if changed
 	_settingsConnectionId = _settings.connect('changed', _applySettings);
 
+	// Hide tooltip if page changed
+	_pageChangedConnectionId = Main.overview.viewSelector.connect('page-changed', _onLeave);
+
+	// Hide tooltip if overview is hidden
+	_ovhidingConnectionId = Main.overview.connect('hiding', _onLeave);
+
 }
 
 
 function disable() {
+
+	// Disconnect from events
+	if (_ovhidingConnectionId > 0) _settings.disconnect(_ovhidingConnectionId);
+	if (_pageChangedConnectionId > 0) _settings.disconnect(_pageChangedConnectionId);
 
 	// disconnects settings
 	if (_settingsConnectionId > 0) _settings.disconnect(_settingsConnectionId);
