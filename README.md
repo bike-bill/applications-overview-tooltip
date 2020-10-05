@@ -17,6 +17,9 @@ To install, simply download as zip and unzip contents in ~/.local/share/gnome-sh
 
 ## Changes
 
+### v10
+- Gnome 3.38
+
 ### v9
 - Ensure tooltip hiding on page change or overview hiding
 - Make title optional in tooltip ; reworked prefs window
