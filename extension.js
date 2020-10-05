@@ -1,7 +1,7 @@
 const Main = imports.ui.main;
 const Mainloop = imports.mainloop;
 const St = imports.gi.St;
-const Tweener = imports.ui.tweener;
+const Tweener = imports.tweener.tweener;
 const Gio = imports.gi.Gio
 const Pango = imports.gi.Pango;
 const extension = imports.misc.extensionUtils.getCurrentExtension();
@@ -54,11 +54,8 @@ function enable() {
 	_applySettings();
 	_tooltips = new Array();
 
-	// Enabling tooltips for already loaded icons in "Recent" view including folders
-	_connectAll(Main.overview.viewSelector.appDisplay._views[0].view);
-
-	// Enabling tooltips for already loaded icons in "All" view including folders
-	_connectAll(Main.overview.viewSelector.appDisplay._views[1].view);
+	// Enabling tooltips for already loaded icons
+	_connectAll(Main.overview.viewSelector.appDisplay);
 
 	// monkeypatching for future icons (includes search results app icons)
 	_old_addItem = imports.ui.iconGrid.IconGrid.prototype.addItem;
