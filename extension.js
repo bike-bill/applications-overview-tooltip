@@ -24,6 +24,7 @@ let BORDERS			= false;
 
 // private variables
 let _old_addItem = null;		// used to restore monkey patched function on disable
+let _old_searchAddItem = null;	// same but for search results
 let _tooltips = null;			// used to disconnect events on disable
 let _labelTimeoutId = 0;		// id of timer waiting for start
 let _resetHoverTimeoutId = 0;	// id of last (cancellable) timer
@@ -57,12 +58,19 @@ function enable() {
 	// Enabling tooltips for already loaded icons
 	_connectAll(Main.overview.viewSelector.appDisplay);
 
-	// monkeypatching for future icons (includes search results app icons)
+	// monkeypatching for future app icons
 	_old_addItem = imports.ui.iconGrid.IconGrid.prototype.addItem;
 	imports.ui.iconGrid.IconGrid.prototype.addItem = function(item, index){
 		_connect(item);
 		// original part of the function I'm overwriting
 		_old_addItem.apply(this, arguments);
+	};
+
+	// monkeypatching for future app icons in search results
+	_old_searchAddItem = imports.ui.search.GridSearchResults.prototype._addItem;
+	imports.ui.search.GridSearchResults.prototype._addItem = function(display){
+		_connect(display);
+		_old_searchAddItem.apply(this, arguments);
 	};
 
 	// apply new settings if changed
@@ -87,8 +95,11 @@ function disable() {
 	if (_settingsConnectionId > 0) _settings.disconnect(_settingsConnectionId);
 	_settings = null;
 
-	// restore the original addItem function
+	// restore the original addItem functions and remove references to them
 	imports.ui.iconGrid.IconGrid.prototype.addItem = _old_addItem;
+	imports.ui.search.GridSearchResults.prototype._addItem = _old_searchAddItem;
+	_old_addItem = null;
+	_old_searchAddItem = null;
 
 	// disconnects from all loaded icons
 	for (let i = 0; i < _tooltips.length; i++) {
