@@ -17,6 +17,10 @@ To install, simply download as zip and unzip contents in ~/.local/share/gnome-sh
 
 ## Changes
 
+### v12
+- Gnome 40
+- Removed ellipsis condition
+
 ### v11
 - German translation improvements (thanks Etamuk)
 - Brings back tooltips on search results
