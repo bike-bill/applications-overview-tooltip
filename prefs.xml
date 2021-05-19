@@ -19,17 +19,20 @@
 	</object>
 
 	<object class="GtkNotebook" id="prefs_widget">
-		<property name="expand">true</property>
 
 		<child>
 			<object class="GtkGrid">
-				<property name="margin">18</property>
+				<property name="margin-start">18</property>
+				<property name="margin-end">18</property>
+				<property name="margin-top">18</property>
+				<property name="margin-bottom">18</property>
 				<property name="row-spacing">18</property>
 				<property name="row-homogeneous">false</property>
 				<property name="orientation">vertical</property>
 
 				<child>
-					<object class="GtkVBox">
+					<object class="GtkBox">
+						<property name="orientation">vertical</property>
 						<property name="spacing">6</property>
 
 						<child>
@@ -46,7 +49,7 @@
 						<child>
 							<object class="GtkBox">
 								<property name="spacing">12</property>
-								<property name="margin-left">12</property>
+								<property name="margin-start">12</property>
 								<child>
 									<object class="GtkLabel">
 										<property name="label" translatable="yes">Show in tooltip</property>
@@ -61,29 +64,12 @@
 								</child>
 							</object>
 						</child>
-						<child>
-							<object class="GtkBox">
-								<property name="spacing">12</property>
-								<property name="margin-left">12</property>
-								<child>
-									<object class="GtkLabel">
-										<property name="label" translatable="yes">Show even if the icon-label is not elipsized</property>
-										<property name="hexpand">true</property>
-										<property name="halign">1</property>
-									</object>
-								</child>
-								<child>
-									<object class="GtkSwitch" id="field_title_always">
-										<property name="active">true</property>
-									</object>
-								</child>
-							</object>
-						</child>
 
 					</object>
 				</child>
 				<child>
-					<object class="GtkVBox">
+					<object class="GtkBox">
+						<property name="orientation">vertical</property>
 						<property name="spacing">6</property>
 
 						<child>
@@ -100,7 +86,7 @@
 						<child>
 							<object class="GtkBox">
 								<property name="spacing">12</property>
-								<property name="margin-left">12</property>
+								<property name="margin-start">12</property>
 								<child>
 									<object class="GtkLabel">
 										<property name="label" translatable="yes">Show in tooltip</property>
@@ -119,7 +105,8 @@
 					</object>
 				</child>
 				<child>
-					<object class="GtkVBox">
+					<object class="GtkBox">
+						<property name="orientation">vertical</property>
 						<property name="spacing">6</property>
 
 						<child>
@@ -136,7 +123,7 @@
 						<child>
 							<object class="GtkBox">
 								<property name="spacing">12</property>
-								<property name="margin-left">12</property>
+								<property name="margin-start">12</property>
 								<child>
 									<object class="GtkLabel">
 										<property name="label" translatable="yes">Show in tooltip</property>
@@ -155,7 +142,8 @@
 					</object>
 				</child>
 				<child>
-					<object class="GtkVBox">
+					<object class="GtkBox">
+						<property name="orientation">vertical</property>
 						<property name="spacing">6</property>
 
 						<child>
@@ -172,7 +160,7 @@
 						<child>
 							<object class="GtkBox">
 								<property name="spacing">12</property>
-								<property name="margin-left">12</property>
+								<property name="margin-start">12</property>
 								<child>
 									<object class="GtkLabel">
 										<property name="label" translatable="yes">Draw borders</property>
@@ -202,13 +190,17 @@
 
 		<child>
 			<object class="GtkGrid">
-				<property name="margin">18</property>
+				<property name="margin-start">18</property>
+				<property name="margin-end">18</property>
+				<property name="margin-top">18</property>
+				<property name="margin-bottom">18</property>
 				<property name="row-spacing">18</property>
 				<property name="row-homogeneous">false</property>
 				<property name="orientation">vertical</property>
 
 				<child>
-					<object class="GtkVBox">
+					<object class="GtkBox">
+					<property name="orientation">vertical</property>
 					<property name="spacing">6</property>
 
 					<child>
@@ -225,7 +217,7 @@
 					<child>
 						<object class="GtkBox">
 							<property name="spacing">12</property>
-							<property name="margin-left">12</property>
+							<property name="margin-start">12</property>
 							<child>
 								<object class="GtkLabel">
 									<property name="label" translatable="yes">Hover time before the tooltip is displayed (in ms)</property>
@@ -245,7 +237,7 @@
 					<child>
 						<object class="GtkBox">
 							<property name="spacing">12</property>
-							<property name="margin-left">12</property>
+							<property name="margin-start">12</property>
 							<child>
 								<object class="GtkLabel">
 									<property name="label" translatable="yes">Tooltip display animation duration (in ms)</property>
@@ -265,7 +257,7 @@
 					<child>
 						<object class="GtkBox">
 							<property name="spacing">12</property>
-							<property name="margin-left">12</property>
+							<property name="margin-start">12</property>
 							<child>
 								<object class="GtkLabel">
 									<property name="label" translatable="yes">Tooltip dismiss animation duration (in ms)</property>

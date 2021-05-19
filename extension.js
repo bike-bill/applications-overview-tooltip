@@ -17,7 +17,6 @@ let SLIDETIME		= 15/100;
 let HOVERDELAY		= 300;
 let HIDEDELAY		= 500;
 let TITLE			= true;
-let TITLE_FORCE		= true;
 let APPDESCRIPTION	= true;
 let GROUPAPPCOUNT	= true;
 let BORDERS			= false;
@@ -36,7 +35,6 @@ let _labelShowing = false;		// self explainatory
 
 let _settings;
 let _settingsConnectionId;
-let _pageChangedConnectionId;
 let _ovhidingConnectionId;
 
 function init() {
@@ -56,11 +54,11 @@ function enable() {
 	_tooltips = new Array();
 
 	// Enabling tooltips for already loaded icons
-	_connectAll(Main.overview.viewSelector.appDisplay);
+	_connectAll(Main.overview._overview._controls._appDisplay);
 
 	// monkeypatching for future app icons
 	_old_addItem = imports.ui.iconGrid.IconGrid.prototype.addItem;
-	imports.ui.iconGrid.IconGrid.prototype.addItem = function(item, index){
+	imports.ui.iconGrid.IconGrid.prototype.addItem = function(item, page, index){
 		_connect(item);
 		// original part of the function I'm overwriting
 		_old_addItem.apply(this, arguments);
@@ -76,9 +74,6 @@ function enable() {
 	// apply new settings if changed
 	_settingsConnectionId = _settings.connect('changed', _applySettings);
 
-	// Hide tooltip if page changed
-	_pageChangedConnectionId = Main.overview.viewSelector.connect('page-changed', _onLeave);
-
 	// Hide tooltip if overview is hidden
 	_ovhidingConnectionId = Main.overview.connect('hiding', _onLeave);
 
@@ -89,7 +84,6 @@ function disable() {
 
 	// Disconnect from events
 	if (_ovhidingConnectionId > 0) _settings.disconnect(_ovhidingConnectionId);
-	if (_pageChangedConnectionId > 0) _settings.disconnect(_pageChangedConnectionId);
 
 	// disconnects settings
 	if (_settingsConnectionId > 0) _settings.disconnect(_settingsConnectionId);
@@ -117,7 +111,6 @@ function _applySettings() {
 	LABELHIDETIME = _settings.get_int("labelhidetime")/100 ;
 	HOVERDELAY = _settings.get_int("hoverdelay") ;
 	TITLE = _settings.get_boolean("title") ;
-	TITLE_FORCE = _settings.get_boolean("titlealways") ;
 	APPDESCRIPTION = _settings.get_boolean("appdescription") ;
 	GROUPAPPCOUNT = _settings.get_boolean("groupappcount") ;
 	BORDERS = _settings.get_boolean("borders");
@@ -211,7 +204,6 @@ function _showTooltip(actor) {
 	let icontext = '';
 	let titletext = '';
 	let detailtext = '';
-	let is_ellipsized = actor._delegate.icon.label.get_clutter_text().get_layout().is_ellipsized();
 	let should_display = false;
 
 	if (actor._delegate.app){
@@ -244,10 +236,8 @@ function _showTooltip(actor) {
 
 	// Decide wether to show title
 	if ( TITLE && icontext ) {
-		if ( TITLE_FORCE || is_ellipsized ) {
-			titletext = icontext;
-			should_display = true;
-		}
+		titletext = icontext;
+		should_display = true;
 	}
 
 	// If there's something to show ..
