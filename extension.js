@@ -5,7 +5,7 @@ const Tweener = imports.tweener.tweener;
 const Gio = imports.gi.Gio
 const Pango = imports.gi.Pango;
 const extension = imports.misc.extensionUtils.getCurrentExtension();
-const Utils = extension.imports.utils;
+const ExtensionUtils = imports.misc.extensionUtils;
 const Format = imports.format;
 const Gettext = imports.gettext.domain('applications-overview-tooltip');
 const _ = Gettext.gettext;
@@ -41,7 +41,7 @@ function init() {
 
 	// Translation init
 	String.prototype.format = Format.format;
-	Utils.initTranslations("applications-overview-tooltip");
+	ExtensionUtils.initTranslations("applications-overview-tooltip");
 
 }
 
@@ -49,7 +49,7 @@ function init() {
 function enable() {
 
 	// Settings access
-	_settings = Utils.getSettings();
+	_settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.applications-overview-tooltip');
 	_applySettings();
 	_tooltips = new Array();
 

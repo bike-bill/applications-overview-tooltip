@@ -7,8 +7,8 @@ const GObject = imports.gi.GObject;
 const Gtk = imports.gi.Gtk;
 const Gio = imports.gi.Gio;
 const Lang = imports.lang;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Utils = Me.imports.utils;
+const ExtensionUtils = imports.misc.extensionUtils;
+const Me = ExtensionUtils.getCurrentExtension();
 
 const Gettext = imports.gettext.domain('applications-overview-tooltip');
 const _ = Gettext.gettext;
@@ -16,8 +16,8 @@ const _ = Gettext.gettext;
 let settings;
 
 function init() {
-	settings = Utils.getSettings(Me);
-	Utils.initTranslations("applications-overview-tooltip");
+	settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.applications-overview-tooltip');
+	ExtensionUtils.initTranslations("applications-overview-tooltip");
 }
 
 function buildPrefsWidget(){
