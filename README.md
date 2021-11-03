@@ -17,6 +17,9 @@ To install, simply download as zip and unzip contents in ~/.local/share/gnome-sh
 
 ## Changes
 
+### v14
+- Minor refactoring
+
 ### v13
 - Gnome 41
 
