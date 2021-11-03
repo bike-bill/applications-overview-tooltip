@@ -17,6 +17,9 @@ To install, simply download as zip and unzip contents in ~/.local/share/gnome-sh
 
 ## Changes
 
+### v13
+- Gnome 41
+
 ### v12
 - Gnome 40
 - Removed ellipsis condition
