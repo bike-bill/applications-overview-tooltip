@@ -17,6 +17,9 @@ To install, simply download as zip and unzip contents in ~/.local/share/gnome-sh
 
 ## Changes
 
+### v16
+- Gnome 43
+
 ### v15
 - Gnome 42
 
