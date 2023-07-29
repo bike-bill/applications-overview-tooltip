@@ -206,6 +206,13 @@ function _showTooltip(actor) {
 	let detailtext = '';
 	let should_display = false;
 
+	// check if actor is still relevant, it may have been destroyed
+	// between hover event and tooltip display (there's a small delay)
+	// Skipping this test may lead to segfault
+	if (! _tooltips.find( (item) => (item.actor === actor) )) {
+		return;
+	}
+
 	if (actor._delegate.app){
 		//applications overview
 		icontext = actor._delegate.app.get_name();
