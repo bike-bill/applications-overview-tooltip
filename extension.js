@@ -1,7 +1,7 @@
 const Main = imports.ui.main;
 const Mainloop = imports.mainloop;
 const St = imports.gi.St;
-const Tweener = imports.tweener.tweener;
+const Clutter = imports.gi.Clutter;
 const Gio = imports.gi.Gio
 const Pango = imports.gi.Pango;
 const extension = imports.misc.extensionUtils.getCurrentExtension();
@@ -286,20 +286,23 @@ function _showTooltip(actor) {
 		// do not show label move if not in showing mode
 		if (_labelShowing) {
 
-			Tweener.addTween(_ttbox,{
+			_ttbox.ease({
 				x: x,
 				y: y,
-				time: SLIDETIME,
-				transition: 'easeOutQuad',
+				opacity: 100,
+				duration: SLIDETIME  * 100,
+				mode: Clutter.AnimationMode.EASE_OUT_QUAD,
 			});
 
 		} else {
 
 			_ttbox.set_position(x, y);
-			Tweener.addTween(_ttbox,{
+			_ttbox.ease({
+				x: x,
+				y: y,
 				opacity: 255,
-				time: LABELSHOWTIME,
-				transition: 'easeOutQuad',
+				duration: LABELSHOWTIME  * 100,
+				mode: Clutter.AnimationMode.EASE_OUT_QUAD,
 			});
 			_labelShowing = true;
 
@@ -318,11 +321,11 @@ function _showTooltip(actor) {
 function _hideTooltip() {
 
 	if (_ttbox){
-		Tweener.addTween(_ttbox, {
+		_ttbox.ease({
 			opacity: 0,
-			time: LABELHIDETIME,
-			transition: 'easeOutQuad',
-			onComplete: function() {
+			duration: LABELHIDETIME  * 100,
+			mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+			onComplete: () => {
 				_ttlabel = null;
 				_ttdetail = null;
 				Main.uiGroup.remove_actor(_ttbox);
