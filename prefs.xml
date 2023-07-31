@@ -37,7 +37,7 @@
 
 						<child>
 							<object class="GtkLabel">
-								<property name="label" translatable="yes">Application title / Group name</property>
+								<property name="label" translatable="yes">Show in tooltip</property>
 								<property name="hexpand">true</property>
 								<property name="halign">1</property>
 								<attributes>
@@ -52,7 +52,7 @@
 								<property name="margin-start">12</property>
 								<child>
 									<object class="GtkLabel">
-										<property name="label" translatable="yes">Show in tooltip</property>
+										<property name="label" translatable="yes">Application title / Group name</property>
 										<property name="hexpand">true</property>
 										<property name="halign">1</property>
 									</object>
@@ -65,31 +65,13 @@
 							</object>
 						</child>
 
-					</object>
-				</child>
-				<child>
-					<object class="GtkBox">
-						<property name="orientation">vertical</property>
-						<property name="spacing">6</property>
-
-						<child>
-							<object class="GtkLabel">
-								<property name="label" translatable="yes">Application description</property>
-								<property name="hexpand">true</property>
-								<property name="halign">1</property>
-								<attributes>
-									<attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
-								</attributes>
-							</object>
-						</child>
-
 						<child>
 							<object class="GtkBox">
 								<property name="spacing">12</property>
 								<property name="margin-start">12</property>
 								<child>
 									<object class="GtkLabel">
-										<property name="label" translatable="yes">Show in tooltip</property>
+										<property name="label" translatable="yes">Application description</property>
 										<property name="hexpand">true</property>
 										<property name="halign">1</property>
 									</object>
@@ -102,31 +84,13 @@
 							</object>
 						</child>
 
-					</object>
-				</child>
-				<child>
-					<object class="GtkBox">
-						<property name="orientation">vertical</property>
-						<property name="spacing">6</property>
-
-						<child>
-							<object class="GtkLabel">
-								<property name="label" translatable="yes">Application count on groups</property>
-								<property name="hexpand">true</property>
-								<property name="halign">1</property>
-								<attributes>
-									<attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
-								</attributes>
-							</object>
-						</child>
-
 						<child>
 							<object class="GtkBox">
 								<property name="spacing">12</property>
 								<property name="margin-start">12</property>
 								<child>
 									<object class="GtkLabel">
-										<property name="label" translatable="yes">Show in tooltip</property>
+										<property name="label" translatable="yes">Application count on groups</property>
 										<property name="hexpand">true</property>
 										<property name="halign">1</property>
 									</object>
