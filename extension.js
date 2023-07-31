@@ -289,7 +289,7 @@ function _showTooltip(actor) {
 			_ttbox.ease({
 				x: x,
 				y: y,
-				opacity: 100,
+				opacity: 255,
 				duration: SLIDETIME  * 100,
 				mode: Clutter.AnimationMode.EASE_OUT_QUAD,
 			});
