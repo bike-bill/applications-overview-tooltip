@@ -200,6 +200,44 @@
 
 				<child>
 					<object class="GtkBox">
+						<property name="orientation">vertical</property>
+						<property name="spacing">6</property>
+
+						<child>
+							<object class="GtkLabel">
+								<property name="label" translatable="yes">Accessibilty</property>
+								<property name="hexpand">true</property>
+								<property name="halign">1</property>
+								<attributes>
+									<attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+								</attributes>
+							</object>
+						</child>
+
+						<child>
+							<object class="GtkBox">
+								<property name="spacing">12</property>
+								<property name="margin-start">12</property>
+								<child>
+									<object class="GtkLabel">
+										<property name="label" translatable="yes">Enable on keyboard navigation</property>
+										<property name="hexpand">true</property>
+										<property name="halign">1</property>
+									</object>
+								</child>
+								<child>
+									<object class="GtkSwitch" id="field_keyboard">
+										<property name="active">true</property>
+									</object>
+								</child>
+							</object>
+						</child>
+
+					</object>
+				</child>
+
+				<child>
+					<object class="GtkBox">
 					<property name="orientation">vertical</property>
 					<property name="spacing">6</property>
 

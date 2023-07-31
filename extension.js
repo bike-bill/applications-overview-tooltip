@@ -20,6 +20,7 @@ let TITLE			= true;
 let APPDESCRIPTION	= true;
 let GROUPAPPCOUNT	= true;
 let BORDERS			= false;
+let KEYBOARD		= true;
 
 // private variables
 let _old_addItem = null;		// used to restore monkey patched function on disable
@@ -99,6 +100,8 @@ function disable() {
 	for (let i = 0; i < _tooltips.length; i++) {
 		_tooltips[i].actor.disconnect(_tooltips[i].con_d);
 		_tooltips[i].actor.disconnect(_tooltips[i].con_h);
+		_tooltips[i].actor.disconnect(_tooltips[i].con_focus_in);
+		_tooltips[i].actor.disconnect(_tooltips[i].con_focus_out);
 	}
 	_tooltips=null;
 
@@ -114,6 +117,7 @@ function _applySettings() {
 	APPDESCRIPTION = _settings.get_boolean("appdescription") ;
 	GROUPAPPCOUNT = _settings.get_boolean("groupappcount") ;
 	BORDERS = _settings.get_boolean("borders");
+	KEYBOARD = _settings.get_boolean("keyboard");
 
 }
 
@@ -135,9 +139,13 @@ function _connectAll(view) {
 
 function _connect(actor) {
 
-	let con_h = actor.connect('notify::hover', _onHover);
-	let con_d = actor.connect('destroy', _onDestroy);
-	_tooltips.push({'actor': actor, 'con_h': con_h, 'con_d': con_d});
+	_tooltips.push({
+		'actor': actor,
+		'con_focus_in': actor.connect('key-focus-in', _onHover),
+		'con_focus_out': actor.connect('key-focus-out', _onHover),
+		'con_h': actor.connect('notify::hover', _onHover),
+		'con_d': actor.connect('destroy', _onDestroy)
+	});
 
 }
 
@@ -154,7 +162,7 @@ function _onDestroy(actor){
 function _onHover(actor){
 
 	// checks if cursor is over the icon
-	if (actor.get_hover()) {
+	if (actor.get_hover() || ( KEYBOARD && actor.has_key_focus() )) {
 	
 		// it is : let's setup a toolip display
 		// unless it's already set

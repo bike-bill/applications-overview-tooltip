@@ -43,5 +43,10 @@
       <summary>Display a border.</summary>
       <description>(true/false)</description>
     </key>
+    <key name="keyboard" type="b">
+      <default>true</default>
+      <summary>Enable on keyboard navigation.</summary>
+      <description>(true/false)</description>
+    </key>
   </schema>
 </schemalist>
