@@ -17,6 +17,10 @@ To install, simply download as zip and unzip contents in ~/.local/share/gnome-sh
 
 ## Changes
 
+### v17
+- Gnome 44
+- Added tooltip on keyboard navigation too (can be disabled)
+
 ### v16
 - Gnome 43
 
