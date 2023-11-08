@@ -1,14 +1,17 @@
-const Main = imports.ui.main;
-const Mainloop = imports.mainloop;
-const St = imports.gi.St;
-const Clutter = imports.gi.Clutter;
-const Gio = imports.gi.Gio
-const Pango = imports.gi.Pango;
-const extension = imports.misc.extensionUtils.getCurrentExtension();
-const ExtensionUtils = imports.misc.extensionUtils;
-const Format = imports.format;
-const Gettext = imports.gettext.domain('applications-overview-tooltip');
-const _ = Gettext.gettext;
+import Main from '@gnome/ui/main';
+import Mainloop from '@gnome/core/mainloop';
+import St from '@gnome/ui/imports/st';
+import Clutter from '@gnome/core/clutter';
+import Gio from '@gnome/core/gio';
+import Pango from '@gnome/core/pango';
+import { getCurrentExtension } from '@gnome/ui/imports/misc/extensionUtils';
+import ExtensionUtils from '@gnome/ui/imports/misc/extensionUtils';
+import Format from '@gnome/core/format';
+import { GNOME_APPLICATION_OVERVIEW_TOOLTIP_DOMAIN } from '@gnome/desktop/imports/gettext';
+import { gettext } from '@gnome/desktop/imports/gettext';
+
+const extension = getCurrentExtension();
+const _ = gettext.domain(GNOME_APPLICATION_OVERVIEW_TOOLTIP_DOMAIN);
 
 // options
 let LABELSHOWTIME	= 15/100;
