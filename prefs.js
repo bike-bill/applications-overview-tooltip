@@ -3,18 +3,15 @@
  * Preferences dialog for gnome-shell-extensions-prefs tool
  */
  
-import GObject from '@gnome/core/gobject';
-import Gtk from '@gnome/platform/gtk';
-import Gio from '@gnome/core/gio';
-import Lang from '@gnome/core/lang';
-import ExtensionUtils from '@gnome/ui/imports/misc/extensionUtils';
+import GObject from 'gi://GObject';
+import Gtk from 'gi://Gtk';
+import Gio from 'gi://Gio';
+import Lang from 'gi://Lang';
+import * as ExtensionUtils from 'resource:///org/gnome/Shell/Extensions/js/misc/extensionUtils.js';
 const Me = ExtensionUtils.getCurrentExtension();
 
-import { GNOME_APPLICATION_OVERVIEW_TOOLTIP_DOMAIN } from '@gnome/desktop/imports/gettext';
-import { gettext } from '@gnome/desktop/imports/gettext';
-const _ = gettext.domain(GNOME_APPLICATION_OVERVIEW_TOOLTIP_DOMAIN);
-
-let settings;
+import { gettext } from 'resource:///org/gnome/Shell/Extensions/js/extensions/extension.js';
+const _ = gettext.domain('application-overview-tooltip');
 
 function init() {
 	settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.applications-overview-tooltip');
