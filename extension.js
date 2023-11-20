@@ -1,4 +1,3 @@
-import Gio from 'gi://Gio';
 import Clutter from 'gi://Clutter';
 import St from 'gi://St';
 import Pango from 'gi://Pango';
@@ -6,7 +5,6 @@ import GLib from 'gi://GLib';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Search from 'resource:///org/gnome/shell/ui/search.js';
 import * as IconGrid from 'resource:///org/gnome/shell/ui/iconGrid.js';
-import * as Util from 'resource:///org/gnome/shell/misc/util.js';
 import {Extension, gettext as _, ngettext as __} from 'resource:///org/gnome/shell/extensions/extension.js';
 
 // options
@@ -14,7 +12,6 @@ let LABELSHOWTIME	= 15/100;
 let LABELHIDETIME 	= 10/100;
 let SLIDETIME		= 15/100;
 let HOVERDELAY		= 300;
-let HIDEDELAY		= 500;
 let TITLE			= true;
 let APPDESCRIPTION	= true;
 let GROUPAPPCOUNT	= true;
@@ -25,10 +22,6 @@ export default class ApplicationOverviewTooltipExtension extends Extension {
 
 	constructor(metadata) {
 		super(metadata);
-	}
-
-	init() {
-		String.prototype.format = Format.format;
 	}
 
 	enable() {
@@ -74,6 +67,11 @@ export default class ApplicationOverviewTooltipExtension extends Extension {
 		Search.GridSearchResults.prototype._addItem = this._old_searchAddItem;
 		this._old_addItem = null;
 		this._old_searchAddItem = null;
+		// Be sure to remove any timeout still active
+		if (this._labelTimeoutId > 0){
+			GLib.Source.remove(this._labelTimeoutId);
+			this._labelTimeoutId = 0;
+		}
 		// Disconnect from all events
 		if (this._settingsConnectionId > 0) this._settings.disconnect(this._settingsConnectionId);
 		this._settings = null;
@@ -86,6 +84,10 @@ export default class ApplicationOverviewTooltipExtension extends Extension {
 			this._tooltips[i].actor.disconnect(this._tooltips[i].con_focus_out);
 		}
 		this._tooltips=null;
+		this._ttbox = null;
+		this._ttlayout = null;
+		this._ttlabel = null;
+		this._ttdetail = null;
 	}
 
 	_applySettings() {
