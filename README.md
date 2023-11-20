@@ -17,6 +17,9 @@ To install, simply download as zip and unzip contents in ~/.local/share/gnome-sh
 
 ## Changes
 
+###v19
+- Changes to comply with EGO Review Guidelines
+
 ### v18
 - Gnome 45
 - Refreshed preferences dialog
